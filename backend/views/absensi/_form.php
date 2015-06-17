@@ -1,38 +1,51 @@
 <?php
-
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-use yii\jui\DatePicker;
-
+// use yii\widgets\ActiveForm;
+// use yii\jui\DatePicker;
+use kartik\time\TimePicker;
+use yii\helpers\ArrayHelper;
+use backend\models\SISWA;
+use kartik\widgets\DepDrop;
+use kartik\widgets\ActiveForm;
+use kartik\widgets\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model backend\models\ABSENSI */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
 <div class="absensi-form">
-
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'ID_SISWA')->textInput() ?>
-
-    <?= $form->field($model, 'TANGGAL')->textInput() ?>
-
-	<?= $form->field($model, 'TANGGAL')->widget(\yii\jui\DatePicker::classname(), [
-    'options' => ['class'=>'form-control']
-	]) ?>
-
-    <?= $form->field($model, 'JAM_MASUK')->widget(\yii\jui\DatePicker::classname(), [
-    'options' => ['class'=>'form-control']
-	]) ?>
-
-    <?= $form->field($model, 'JAM_PULANG')->widget(\yii\jui\DatePicker::classname(), [
-    'options' => ['class'=>'form-control']
-	]) ?>
-
+    <?php echo $form->field($model, 'ID_SISWA')->dropDownList(ArrayHelper::map(SISWA::find()->all(), 'ID_SISWA', 'NAMA_LENGKAP')); ?>
+    <?php echo $form->field($model, 'TANGGAL')->widget(DatePicker::classname(), [
+    'options' => ['placeholder' => 'Enter birth date ...'],
+    'pluginOptions' => [
+    'autoclose'=>true,
+    'format' => 'yyyy-mm-dd'
+    ]
+    ]); ?>
+    <div class="form-group">
+        <?php echo '<label>JAM MASUK</label>';
+        echo TimePicker::widget(['model' => $model,
+        'attribute' => 'JAM_MASUK',
+        'pluginOptions' => [
+        'showSeconds' => true,
+        'showMeridian' => false,
+        'minuteStep' => 1,
+        'secondStep' => 5,
+        ]]); ?>
+    </div>
+    
+    <div class="form-group">
+        <?php echo '<label>JAM PULANG</label>';
+        echo TimePicker::widget(['model' => $model, 'attribute' => 'JAM_PULANG',
+        'pluginOptions' => [
+        'showSeconds' => true,
+        'showMeridian' => false,
+        'minuteStep' => 1,
+        'secondStep' => 5,
+        ]]); ?>
+    </div>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
-
     <?php ActiveForm::end(); ?>
-
 </div>

@@ -30,8 +30,7 @@ class ABSENSI extends \yii\db\ActiveRecord
     {
         return [
             [['ID_SISWA'], 'integer'],
-            [['TANGGAL'], 'safe'],
-            [['JAM_MASUK', 'JAM_PULANG'], 'string', 'max' => 45]
+            [['TANGGAL', 'JAM_MASUK', 'JAM_PULANG'], 'safe']
         ];
     }
 

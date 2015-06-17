@@ -11,8 +11,6 @@ use Yii;
  * @property integer $ID_KELAS
  * @property string $NAMA
  * @property string $ALAMAT
- *
- * @property KELAS $iDKELAS
  */
 class GURU extends \yii\db\ActiveRecord
 {
@@ -46,13 +44,5 @@ class GURU extends \yii\db\ActiveRecord
             'NAMA' => 'Nama',
             'ALAMAT' => 'Alamat',
         ];
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getIDKELAS()
-    {
-        return $this->hasOne(KELAS::className(), ['ID_KELAS' => 'ID_KELAS']);
     }
 }
